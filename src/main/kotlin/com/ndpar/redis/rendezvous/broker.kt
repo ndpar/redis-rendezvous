@@ -48,7 +48,7 @@ class RedisTopicListener : MessageListener, ChannelSubscription {
 
     private fun notify(key: String, value: String) {
         GlobalScope.launch(Dispatchers.IO) {
-            subscriptions.get(key)?.send(value)
+            subscriptions[key]?.send(value)
         }
     }
 }
