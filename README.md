@@ -1,7 +1,7 @@
 ## Overview
 
 This project demonstrates how to implement poor man's message broker
-using Redis Pub/Sub, Spring, and Kotlin coroutines.
+using Spring Redis.
 
 A Rendezvous example shows how two clients can swap their messages
 by sending them to the same "queue" on the server. First client sends

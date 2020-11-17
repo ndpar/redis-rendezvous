@@ -7,7 +7,6 @@ import kotlinx.coroutines.async
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.junit.jupiter.api.Assertions.assertEquals
-import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
@@ -40,16 +39,14 @@ class ControllersIT(
         val alice = async { alice(id) }
         val bob = async { bob(id) }
 
-        val first = alice.await()
-        val second = bob.await()
+        val a = alice.await()
+        val b = bob.await()
 
-        assertEquals(id, first.id)
-        assertEquals(id, second.id)
+        assertEquals(id, a.id)
+        assertEquals(id, b.id)
 
-        assertEquals("hello from /bob", first.message)
-        assertEquals("hello from /alice", second.message)
-
-        assertTrue(first.date!!.before(second.date))
+        assertEquals("hello from /bob", a.message)
+        assertEquals("hello from /alice", b.message)
     }
 
     @Test
@@ -59,10 +56,14 @@ class ControllersIT(
         val bob = async { bob(id) }
         val alice = async { alice(id) }
 
-        val first = alice.await()
-        val second = bob.await()
+        val a = alice.await()
+        val b = bob.await()
 
-        assertTrue(first.date!!.before(second.date))
+        assertEquals(id, a.id)
+        assertEquals(id, b.id)
+
+        assertEquals("hello from /bob", a.message)
+        assertEquals("hello from /alice", b.message)
     }
 
     @Test

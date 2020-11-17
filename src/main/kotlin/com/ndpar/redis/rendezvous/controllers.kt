@@ -23,9 +23,9 @@ class FirstController(
 ) {
     @PostMapping(consumes = [JSON], produces = [JSON])
     fun process(@Valid @RequestBody message: Message): Message {
+        broker.leftSend(message.id, message.message)
         val body = broker.leftReceive(message.id)
         return if (body != null) {
-            broker.leftSend(message.id, message.message)
             message.copy(message = body, date = Date())
         } else {
             message.copy(message = "TIMEOUT")
